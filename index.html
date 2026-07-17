@@ -1,0 +1,732 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Bonka — Turn missed calls into booked work</title>
+  <meta name="description" content="Bonka answers missed, overflow and after-hours calls for restoration companies — qualifies the job, alerts the right person, and keeps every opportunity visible until it is booked or closed.">
+  <meta property="og:title" content="Bonka — Turn missed calls into booked work">
+  <meta property="og:description" content="AI-powered call intake and revenue recovery for phone-led service businesses.">
+  <meta property="og:type" content="website">
+  <meta property="og:image" content="https://bonka.ai/og.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="theme-color" content="#102840">
+  <style>html,body{background:#102840}</style>
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <!-- brand sprite: the Bonka B — four rounded planes, AI star in the negative centre -->
+  <svg class="sr-defs" aria-hidden="true" focusable="false">
+    <defs>
+      <linearGradient id="bonka-grad" x1="0" y1="0" x2="48" y2="48" gradientUnits="userSpaceOnUse">
+        <stop offset="0" stop-color="#5b62f0"/>
+        <stop offset=".45" stop-color="#2f86f6"/>
+        <stop offset="1" stop-color="#31c8ff"/>
+      </linearGradient>
+      <path id="bonka-tl" d="M13 0L18.7 0Q20.7 0 20.7 2L20.7 15.5Q18.9 20.4 14 22.2L2 22.2Q0 22.2 0 20.2L0 13Q0 0 13 0Z"/>
+      <path id="bonka-tr" d="M24.3 0L34.9 0A11.1 11.1 0 0 1 34.9 22.2L29 22.2Q24.1 20.4 22.3 15.5L22.3 2Q22.3 0 24.3 0Z"/>
+      <path id="bonka-bl" d="M2 23.8L14 23.8Q18.9 25.6 20.7 30.5L20.7 46Q20.7 48 18.7 48L13 48Q0 48 0 35L0 25.8Q0 23.8 2 23.8Z"/>
+      <path id="bonka-br" d="M29 23.8L35.9 23.8A12.1 12.1 0 0 1 35.9 48L24.3 48Q22.3 48 22.3 46L22.3 30.5Q24.1 25.6 29 23.8Z"/>
+      <symbol id="bonka-mark" viewBox="0 0 48 48">
+        <g fill="url(#bonka-grad)">
+          <use href="#bonka-tl"/><use href="#bonka-tr"/><use href="#bonka-bl"/><use href="#bonka-br"/>
+        </g>
+        <use href="#bonka-tl" fill="#0a1440" opacity=".14"/>
+        <use href="#bonka-bl" fill="#0a1440" opacity=".07"/>
+      </symbol>
+      <symbol id="bonka-mark-flat" viewBox="0 0 48 48">
+        <g fill="currentColor">
+          <use href="#bonka-tl"/><use href="#bonka-tr"/><use href="#bonka-bl"/><use href="#bonka-br"/>
+        </g>
+      </symbol>
+      <symbol id="bonka-spark" viewBox="0 0 24 24">
+        <path fill="currentColor" d="M12 0C13.9 7.1 16.9 10.1 24 12 16.9 13.9 13.9 16.9 12 24 10.1 16.9 7.1 13.9 0 12 7.1 10.1 10.1 7.1 12 0Z"/>
+      </symbol>
+    </defs>
+  </svg>
+
+  <!-- ======================= NAV ======================= -->
+  <header class="nav" id="nav">
+    <div class="nav-inner">
+      <a class="brand" href="#top" aria-label="Bonka — home">
+        <svg class="brand-mark" aria-hidden="true"><use href="#bonka-mark"/></svg>
+        <span class="brand-word">Bonka<span class="brand-tld">.ai</span></span>
+      </a>
+      <nav class="nav-links" aria-label="Primary">
+        <a href="#how-it-works">How it works</a>
+        <a href="#use-cases">Use cases</a>
+        <a href="#visibility">Visibility</a>
+        <a href="#results">Results</a>
+        <a href="#faq">FAQ</a>
+      </nav>
+      <div class="nav-cta">
+        <a class="btn btn-primary btn-sm" href="#demo">Book a demo</a>
+      </div>
+      <button class="nav-toggle" id="navToggle" aria-expanded="false" aria-controls="mobileMenu" aria-label="Open menu">
+        <span></span><span></span>
+      </button>
+    </div>
+    <div class="mobile-menu" id="mobileMenu" hidden>
+      <a href="#how-it-works">How it works</a>
+      <a href="#use-cases">Use cases</a>
+      <a href="#visibility">Visibility</a>
+      <a href="#results">Results</a>
+      <a href="#faq">FAQ</a>
+      <a class="btn btn-primary" href="#demo">Book a demo</a>
+    </div>
+  </header>
+
+  <main id="main">
+
+    <!-- ======================= HERO ======================= -->
+    <section class="hero" id="top">
+      <!-- blueprint elevation — draws itself in behind the glass -->
+      <svg class="hero-blueprint" viewBox="0 0 720 540" aria-hidden="true" focusable="false">
+        <g class="bp-g1">
+          <line class="bp-line bp-draw" pathLength="1" x1="48" y1="430" x2="672" y2="430"/>
+          <path class="bp-hatch bp-draw" pathLength="1" d="M70 444l12-12M102 444l12-12M134 444l12-12M166 444l12-12M198 444l12-12M230 444l12-12M262 444l12-12M294 444l12-12M326 444l12-12M358 444l12-12M390 444l12-12M422 444l12-12M454 444l12-12M486 444l12-12M518 444l12-12M550 444l12-12M582 444l12-12M614 444l12-12M646 444l12-12"/>
+        </g>
+        <g class="bp-g2">
+          <path class="bp-line bp-draw" pathLength="1" d="M210 430V250M510 430V250"/>
+          <path class="bp-line bp-draw" pathLength="1" d="M190 250L360 150L530 250"/>
+          <line class="bp-line bp-draw" pathLength="1" x1="190" y1="250" x2="530" y2="250"/>
+          <path class="bp-line bp-draw" pathLength="1" d="M430 201V162H462V220"/>
+        </g>
+        <g class="bp-g3">
+          <rect class="bp-line bp-draw" pathLength="1" x="330" y="340" width="60" height="90"/>
+          <circle class="bp-line bp-draw" pathLength="1" cx="378" cy="388" r="2.5"/>
+          <rect class="bp-line bp-draw" pathLength="1" x="240" y="290" width="58" height="56"/>
+          <path class="bp-line bp-draw" pathLength="1" d="M269 290v56M240 318h58"/>
+          <rect class="bp-line bp-draw" pathLength="1" x="422" y="290" width="58" height="56"/>
+          <path class="bp-line bp-draw" pathLength="1" d="M451 290v56M422 318h58"/>
+        </g>
+        <g class="bp-g4">
+          <path class="bp-dim bp-draw" pathLength="1" d="M190 130V106M530 130V106M190 118H332M388 118H530"/>
+          <path class="bp-arrow" d="M190 118l13-4.5v9zM530 118l-13-4.5v9z"/>
+          <path class="bp-dim bp-draw" pathLength="1" d="M554 250h24M554 430h24M566 262v70M566 390v28"/>
+          <path class="bp-arrow" d="M566 250l-4.5 13h9zM566 430l-4.5-13h9z"/>
+          <circle class="bp-callout" cx="392" cy="386" r="30"/>
+          <path class="bp-dim bp-draw" pathLength="1" d="M414 407l52 55h84"/>
+          <circle class="bp-dim bp-draw" pathLength="1" cx="86" cy="96" r="13"/>
+          <path class="bp-dim bp-draw" pathLength="1" d="M86 74v44M64 96h44"/>
+          <path class="bp-dim bp-draw" pathLength="1" d="M247 216l34-20v20z"/>
+        </g>
+      </svg>
+      <div class="container hero-grid">
+        <div class="hero-copy">
+          <p class="eyebrow" data-reveal>AI call intake · Revenue recovery</p>
+          <h1 class="hero-title" data-reveal data-delay="1">
+            Turn missed calls into <em>booked work.</em>
+          </h1>
+          <p class="hero-sub" data-reveal data-delay="2">
+            Bonka answers urgent and after-hours calls, qualifies the job, alerts the
+            right person, and keeps every opportunity visible until it is booked or closed.
+          </p>
+          <div class="hero-actions" data-reveal data-delay="3">
+            <a class="btn btn-primary" href="#demo">Book a demo</a>
+            <a class="btn btn-ghost" href="#how-it-works">See how it works</a>
+          </div>
+          <ul class="hero-ticks mono" data-reveal data-delay="4">
+            <li>Installed &amp; optimized for you</li>
+            <li>Built for restoration &amp; urgent trades</li>
+            <li>Live in days — keep your numbers</li>
+          </ul>
+        </div>
+
+        <!-- Platform proof -->
+        <aside class="hero-metrics instrument-reveal" data-reveal data-delay="2" aria-label="Bonka platform statistics">
+          <div class="metrics-card">
+            <p class="metrics-kicker mono">BUILT FOR THE CALLS YOU CAN'T MISS</p>
+
+            <div class="metrics-list">
+              <article class="metric-row">
+                <strong>2M+</strong>
+                <p>Calls handled by voice AI infrastructure.</p>
+              </article>
+              <article class="metric-row">
+                <strong>24/7</strong>
+                <p>AI intake, qualification and follow-up.</p>
+              </article>
+              <article class="metric-row">
+                <strong>$4,500+</strong>
+                <p>Average value of urgent service jobs.</p>
+              </article>
+            </div>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <!-- ======================= INTEGRATIONS ======================= -->
+    <section class="integrations" aria-labelledby="integrations-title">
+      <div class="container integration-strip">
+        <p class="integrations-title" id="integrations-title" data-reveal>
+          Works with your existing tools.
+        </p>
+        <div class="marquee" data-reveal data-delay="1">
+          <ul class="marquee-track">
+            <li class="tool"><span class="tool-mark"><img src="assets/logos/jobber.png" alt=""></span><span class="tool-name">Jobber</span></li>
+            <li class="tool"><span class="tool-mark"><img src="assets/logos/servicetitan.png" alt=""></span><span class="tool-name">ServiceTitan</span></li>
+            <li class="tool"><span class="tool-mark"><img src="assets/logos/xero.svg" alt=""></span><span class="tool-name">Xero</span></li>
+            <li class="tool"><span class="tool-mark"><img src="assets/logos/quickbooks.svg" alt=""></span><span class="tool-name">QuickBooks</span></li>
+            <li class="tool"><span class="tool-mark"><img src="assets/logos/salesforce.png" alt=""></span><span class="tool-name">Salesforce</span></li>
+            <li class="tool"><span class="tool-mark"><img src="assets/logos/hubspot.svg" alt=""></span><span class="tool-name">HubSpot</span></li>
+            <li class="tool"><span class="tool-mark"><img src="assets/logos/zapier.svg" alt=""></span><span class="tool-name">Zapier</span></li>
+            <li class="tool"><span class="tool-mark"><img src="assets/logos/twilio.png" alt=""></span><span class="tool-name">Twilio</span></li>
+            <li class="tool"><span class="tool-mark"><img src="assets/logos/slack.png" alt=""></span><span class="tool-name">Slack</span></li>
+            <li class="tool"><span class="tool-mark"><img src="assets/logos/googlecalendar.svg" alt=""></span><span class="tool-name">Google Calendar</span></li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- ======================= PROBLEM ======================= -->
+    <section class="problem" id="problem">
+      <svg class="motif motif-problem" aria-hidden="true"><use href="#bonka-spark"/></svg>
+      <div class="field-drawing field-drawing-water" aria-hidden="true">
+        <span class="water-main"></span>
+        <span class="water-branch water-branch-a"></span>
+        <span class="water-branch water-branch-b"></span>
+        <span class="water-branch water-branch-c"></span>
+        <span class="water-valve water-valve-a"></span>
+        <span class="water-valve water-valve-b"></span>
+        <span class="water-loss"></span>
+      </div>
+      <div class="container">
+        <div class="problem-grid">
+          <div class="problem-lead">
+            <p class="eyebrow" data-reveal>The leak in your pipeline</p>
+            <h2 class="h2" data-reveal data-delay="1">The job called.<br>Nobody answered.</h2>
+            <p class="section-sub" data-reveal data-delay="2">
+              Emergency work is won on the phone, at speed. Every unanswered ring is a
+              customer standing in water, dialling the next company on the list.
+            </p>
+            <div class="problem-stat" data-reveal data-delay="3">
+              <span class="problem-stat-num"><span data-count="27">0</span>%</span>
+              <span class="problem-stat-label">of calls to service businesses go unanswered — most of them after hours, when losses actually happen.</span>
+            </div>
+          </div>
+
+          <div class="problem-panel instrument-reveal" data-reveal data-delay="2" aria-hidden="true">
+            <div class="misslog">
+              <div class="misslog-head mono">
+                <span>CALL LOG — LAST NIGHT</span>
+                <span class="misslog-badge">3 MISSED</span>
+              </div>
+              <ul>
+                <li class="miss">
+                  <span class="miss-icon"></span>
+                  <div><p>Storm water — ceiling collapse</p><p class="mono dim">11:52 PM · rang 40s · no answer</p></div>
+                  <span class="miss-tag">Lost</span>
+                </li>
+                <li class="miss">
+                  <span class="miss-icon"></span>
+                  <div><p>Hot water line burst</p><p class="mono dim">1:18 AM · voicemail · no message</p></div>
+                  <span class="miss-tag">Lost</span>
+                </li>
+                <li class="miss">
+                  <span class="miss-icon"></span>
+                  <div><p>Flooded office reception</p><p class="mono dim">4:36 AM · rang out</p></div>
+                  <span class="miss-tag">Lost</span>
+                </li>
+              </ul>
+              <p class="misslog-foot mono">EST. VALUE WALKED — $9,400</p>
+            </div>
+          </div>
+        </div>
+
+        <ol class="problem-points">
+          <li data-reveal>
+            <span class="mono point-num">01</span>
+            <h3>After-hours is prime time</h3>
+            <p>Pipes don't burst on a schedule. Most serious water and storm losses start at night or on weekends — exactly when your office line goes quiet.</p>
+          </li>
+          <li data-reveal data-delay="1">
+            <span class="mono point-num">02</span>
+            <h3>Voicemail is a dead end</h3>
+            <p>A caller with water coming through the ceiling doesn't leave a message. They hang up and ring your competitor, who picks up.</p>
+          </li>
+          <li data-reveal data-delay="2">
+            <span class="mono point-num">03</span>
+            <h3>Untracked leads leak revenue</h3>
+            <p>Even answered calls die in text threads and scribbled notes — no owner, no follow-up, no record of what was won or quietly lost.</p>
+          </li>
+        </ol>
+      </div>
+    </section>
+
+    <!-- ======================= WORKFLOW ======================= -->
+    <section class="workflow" id="how-it-works">
+      <svg class="motif motif-workflow" aria-hidden="true"><use href="#bonka-mark-flat"/></svg>
+      <div class="container">
+        <div class="section-head">
+          <p class="eyebrow" data-reveal>How Bonka works</p>
+          <h2 class="h2" data-reveal data-delay="1">From ring to revenue,<br>on rails.</h2>
+          <p class="section-sub" data-reveal data-delay="2">
+            An operational intake layer that sits over your existing phone numbers.
+            Nothing to rip out — Bonka catches what your team can't.
+          </p>
+        </div>
+
+        <div class="flow" data-reveal data-delay="1">
+          <svg class="flow-line" viewBox="0 0 1200 24" preserveAspectRatio="none" aria-hidden="true">
+            <line x1="16" y1="12" x2="1184" y2="12" class="flow-line-base"/>
+            <path class="flow-cap" d="M2 12l14-5v10zM1198 12l-14-5v10z"/>
+            <line x1="16" y1="12" x2="1184" y2="12" class="flow-line-pulse"/>
+          </svg>
+          <ol class="flow-steps">
+            <li class="flow-step" data-reveal>
+              <span class="flow-node mono">01</span>
+              <h3>Answer</h3>
+              <p>Bonka picks up missed, overflow and after-hours calls within seconds — every call, every time, in a calm and professional voice.</p>
+              <span class="flow-chip mono">0 CALLS TO VOICEMAIL</span>
+            </li>
+            <li class="flow-step" data-reveal data-delay="1">
+              <span class="flow-node mono">02</span>
+              <h3>Qualify</h3>
+              <p>It captures what happened, where, how severe it is, insurance status and access details — then grades the urgency of the job.</p>
+              <span class="flow-chip mono">P1–P4 TRIAGE</span>
+            </li>
+            <li class="flow-step" data-reveal data-delay="2">
+              <span class="flow-node mono">03</span>
+              <h3>Route</h3>
+              <p>Emergencies alert your on-call person instantly by call and SMS with a full job brief. Routine work lands in the queue for the morning.</p>
+              <span class="flow-chip mono">RIGHT PERSON, FIRST TIME</span>
+            </li>
+            <li class="flow-step" data-reveal data-delay="3">
+              <span class="flow-node mono">04</span>
+              <h3>Track</h3>
+              <p>Every opportunity stays visible with an owner and a status until it's booked, won, or deliberately closed. Nothing slips.</p>
+              <span class="flow-chip mono">ZERO SILENT LOSSES</span>
+            </li>
+          </ol>
+        </div>
+      </div>
+    </section>
+
+    <!-- ======================= IMPLEMENTATION ======================= -->
+    <section class="install" id="implementation">
+      <div class="field-drawing field-drawing-install" aria-hidden="true">
+        <span class="survey-outline"></span>
+        <span class="survey-dim survey-dim-x"></span>
+        <span class="survey-dim survey-dim-y"></span>
+        <span class="survey-cross survey-cross-a"></span>
+        <span class="survey-cross survey-cross-b"></span>
+      </div>
+      <div class="container install-grid">
+        <div class="install-lead">
+          <p class="eyebrow" data-reveal>Done for you</p>
+          <h2 class="h2" data-reveal data-delay="1">You run the jobs.<br>We run the system.</h2>
+          <p class="section-sub" data-reveal data-delay="2">
+            Bonka isn't software you configure. Our team installs it over your existing
+            numbers, tests it against your real scenarios, and keeps tuning it on live
+            call outcomes. Nothing for your office to learn.
+          </p>
+          <ul class="install-trust" data-reveal data-delay="3">
+            <li>Every call recorded, transcribed and auditable</li>
+            <li>Human escalation available at any moment</li>
+            <li>Your numbers and your data stay yours</li>
+          </ul>
+        </div>
+        <ol class="install-steps">
+          <li class="install-step" data-reveal data-delay="1">
+            <div class="install-marker mono">01</div>
+            <div>
+              <h3>Map your operation</h3>
+              <p>A working session to capture your service areas, job types, triage priorities and on-call roster — the logic your best intake person carries in their head.</p>
+              <span class="install-tag mono">Day 1</span>
+            </div>
+          </li>
+          <li class="install-step" data-reveal data-delay="2">
+            <div class="install-marker mono">02</div>
+            <div>
+              <h3>Install and fire-drill</h3>
+              <p>We configure Bonka over the numbers you already advertise, connect your job management tools, and run live test calls with your team until the routing is right.</p>
+              <span class="install-tag mono">Days 2–5</span>
+            </div>
+          </li>
+          <li class="install-step" data-reveal data-delay="3">
+            <div class="install-marker mono">03</div>
+            <div>
+              <h3>Optimize on real outcomes</h3>
+              <p>A named Bonka specialist reviews won and lost calls with you, tunes scripts, triage and routing, and flags revenue you're still leaving on the phone.</p>
+              <span class="install-tag mono">Ongoing</span>
+            </div>
+          </li>
+        </ol>
+      </div>
+    </section>
+
+    <!-- ======================= USE CASES ======================= -->
+    <section class="usecases" id="use-cases">
+      <div class="container">
+        <div class="section-head section-head-split">
+          <div>
+            <p class="eyebrow" data-reveal>Built for restoration</p>
+            <h2 class="h2" data-reveal data-delay="1">Trained on the jobs<br>you actually get.</h2>
+          </div>
+          <p class="section-sub" data-reveal data-delay="2">
+            Bonka speaks the language of urgent property damage. It knows a category-3
+            water loss from a dripping tap — and treats them differently.
+          </p>
+        </div>
+
+        <div class="case-grid">
+          <article class="case case-wide" data-reveal>
+            <div class="case-tags"><span class="chip chip-red mono">P1 · EMERGENCY</span></div>
+            <h3>Burst pipes &amp; active leaks</h3>
+            <p>Bonka confirms the water is stopped or walks the caller to the mains, captures the affected areas, and dispatches your on-call tech with a full brief — while the caller is still on the line.</p>
+            <p class="case-detail mono">ASKS: source · spread · power risk · insurance · access</p>
+          </article>
+          <article class="case" data-reveal data-delay="1">
+            <div class="case-tags"><span class="chip chip-red mono">P1 · EMERGENCY</span></div>
+            <h3>Flood &amp; storm damage</h3>
+            <p>Storm nights mean call spikes. Bonka absorbs the overflow, triages by severity, and queues jobs so your crews hit the worst losses first.</p>
+          </article>
+          <article class="case" data-reveal data-delay="2">
+            <div class="case-tags"><span class="chip chip-amber mono">P2 · URGENT</span></div>
+            <h3>Fire &amp; smoke</h3>
+            <p>Captures the scope, make-safe needs and insurer details, and gets your estimator in front of the loss before the competition arrives.</p>
+          </article>
+          <article class="case" data-reveal data-delay="1">
+            <div class="case-tags"><span class="chip chip-amber mono">P2 · URGENT</span></div>
+            <h3>Sewage overflow</h3>
+            <p>Health-risk jobs get flagged and escalated immediately, with contamination category and site access captured up front.</p>
+          </article>
+          <article class="case" data-reveal data-delay="2">
+            <div class="case-tags"><span class="chip mono">P3 · SCHEDULED</span></div>
+            <h3>Mould remediation</h3>
+            <p>Qualifies the scope and timeline, books the inspection into your calendar, and follows up so the quote never goes cold.</p>
+          </article>
+          <article class="case case-wide case-afterhours" data-reveal data-delay="3">
+            <div class="case-tags"><span class="chip mono">ALWAYS ON</span></div>
+            <h3>After-hours &amp; overflow</h3>
+            <p>Nights, weekends, holidays, or the third line ringing at 2 PM — Bonka is the intake layer that never has its hands full.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ======================= VISIBILITY ======================= -->
+    <section class="visibility" id="visibility">
+      <div class="field-drawing field-drawing-coverage" aria-hidden="true">
+        <span class="coverage-ring coverage-ring-a"></span>
+        <span class="coverage-ring coverage-ring-b"></span>
+        <span class="coverage-ring coverage-ring-c"></span>
+        <span class="coverage-axis coverage-axis-x"></span>
+        <span class="coverage-axis coverage-axis-y"></span>
+        <span class="coverage-route"></span>
+        <span class="coverage-node coverage-node-a"></span>
+        <span class="coverage-node coverage-node-b"></span>
+        <span class="coverage-node coverage-node-c"></span>
+      </div>
+      <div class="container visibility-grid">
+        <div class="visibility-copy">
+          <p class="eyebrow" data-reveal>Operational visibility</p>
+          <h2 class="h2" data-reveal data-delay="1">Nothing goes dark.</h2>
+          <p class="section-sub" data-reveal data-delay="2">
+            Every call becomes a tracked opportunity with an owner, a priority and a
+            status. Your morning starts with a queue, not a mystery.
+          </p>
+          <ul class="visibility-list">
+            <li data-reveal data-delay="2">
+              <h3>One queue, full accountability</h3>
+              <p>See every open opportunity, who owns it, and how long it's been waiting — across every line and every hour.</p>
+            </li>
+            <li data-reveal data-delay="3">
+              <h3>Transcripts &amp; job briefs</h3>
+              <p>Every call is captured word for word, summarised into a brief your techs can act on from the truck.</p>
+            </li>
+            <li data-reveal data-delay="4">
+              <h3>Won, lost, and why</h3>
+              <p>Outcomes are recorded, so you finally know your true close rate — and where revenue is escaping.</p>
+            </li>
+          </ul>
+        </div>
+
+        <div class="board-wrap instrument-reveal" data-reveal data-delay="2" aria-hidden="true">
+          <div class="board">
+            <div class="board-head mono">
+              <span><span class="live-dot"></span>OPPORTUNITY QUEUE</span>
+              <span id="boardClock">TUE · 07:12</span>
+            </div>
+            <div class="board-cols">
+              <div class="bcol">
+                <p class="bcol-title mono">NEW <span>2</span></p>
+                <div class="bcard">
+                  <p class="bcard-title">Ceiling stain — unit 4B</p>
+                  <p class="mono dim">06:58 · P3</p>
+                </div>
+                <div class="bcard bcard-pulse">
+                  <p class="bcard-title">Kitchen flood — cafe</p>
+                  <p class="mono dim">07:11 · P1</p>
+                </div>
+              </div>
+              <div class="bcol">
+                <p class="bcol-title mono">DISPATCHED <span>2</span></p>
+                <div class="bcard">
+                  <p class="bcard-title">Burst pipe — Kelvin Gr.</p>
+                  <p class="mono dim">02:47 · Marcus R.</p>
+                </div>
+                <div class="bcard">
+                  <p class="bcard-title">Storm water — warehouse</p>
+                  <p class="mono dim">05:30 · Dana W.</p>
+                </div>
+              </div>
+              <div class="bcol">
+                <p class="bcol-title mono">BOOKED <span>3</span></p>
+                <div class="bcard bcard-ok">
+                  <p class="bcard-title">Mould inspection — Ascot</p>
+                  <p class="mono dim">Thu 09:00</p>
+                </div>
+                <div class="bcard bcard-ok">
+                  <p class="bcard-title">Fire make-safe — depot</p>
+                  <p class="mono dim">Today 14:00</p>
+                </div>
+                <div class="bcard bcard-ok">
+                  <p class="bcard-title">Sewage — childcare ctr.</p>
+                  <p class="mono dim">Today 08:00</p>
+                </div>
+              </div>
+            </div>
+            <div class="board-ticker mono">
+              <span id="tickerText">Marcus R. accepted dispatch — 02:49 AM</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ======================= RESULTS ======================= -->
+    <section class="results" id="results">
+      <div class="container">
+        <p class="eyebrow eyebrow-center" data-reveal>What operators recover</p>
+        <div class="results-band">
+          <div class="result" data-reveal>
+            <p class="result-num"><span data-count="100">0</span>%</p>
+            <p class="result-label">of calls answered — nights, weekends, storm surges included</p>
+          </div>
+          <div class="result" data-reveal data-delay="1">
+            <p class="result-num">&lt;<span data-count="60">0</span>s</p>
+            <p class="result-label">median speed-to-lead on emergency calls</p>
+          </div>
+          <div class="result" data-reveal data-delay="2">
+            <p class="result-num"><span data-count="3" data-decimals="1" data-target="3.1">0</span>×</p>
+            <p class="result-label">more after-hours jobs captured vs. voicemail</p>
+          </div>
+          <div class="result" data-reveal data-delay="3">
+            <p class="result-num">$<span data-count="212">0</span>k</p>
+            <p class="result-label">average annual revenue recovered per location</p>
+          </div>
+        </div>
+        <p class="results-note mono" data-reveal data-delay="3">Representative figures across restoration deployments. Your call volume sets the ceiling.</p>
+      </div>
+    </section>
+
+    <!-- ======================= COMPARISON ======================= -->
+    <section class="comparison" id="comparison">
+      <div class="container">
+        <div class="section-head">
+          <p class="eyebrow" data-reveal>Why not the usual fixes</p>
+          <h2 class="h2" data-reveal data-delay="1">Answering the phone<br>isn't the job. Winning it is.</h2>
+        </div>
+        <div class="table-wrap instrument-reveal" data-reveal data-delay="2">
+          <table class="compare">
+            <caption class="sr-only">Comparison of Bonka against voicemail, answering services, and website chatbots</caption>
+            <thead>
+              <tr>
+                <th scope="col"><span class="sr-only">Capability</span></th>
+                <th scope="col" class="mono">Voicemail</th>
+                <th scope="col" class="mono">Answering service</th>
+                <th scope="col" class="mono">Web chatbot</th>
+                <th scope="col" class="compare-bonka"><span class="compare-bonka-label"><svg class="compare-mark" aria-hidden="true"><use href="#bonka-mark"/></svg>Bonka</span></th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <th scope="row">Answers every call, 24/7</th>
+                <td><span class="no">—</span></td>
+                <td><span class="part" title="Partially">◐</span></td>
+                <td><span class="no">—</span></td>
+                <td class="compare-bonka"><span class="yes">●</span></td>
+              </tr>
+              <tr>
+                <th scope="row">Understands urgency &amp; severity</th>
+                <td><span class="no">—</span></td>
+                <td><span class="part" title="Partially">◐</span></td>
+                <td><span class="no">—</span></td>
+                <td class="compare-bonka"><span class="yes">●</span></td>
+              </tr>
+              <tr>
+                <th scope="row">Routes to on-call staff with context</th>
+                <td><span class="no">—</span></td>
+                <td><span class="part" title="Partially">◐</span></td>
+                <td><span class="no">—</span></td>
+                <td class="compare-bonka"><span class="yes">●</span></td>
+              </tr>
+              <tr>
+                <th scope="row">Books or escalates in real time</th>
+                <td><span class="no">—</span></td>
+                <td><span class="no">—</span></td>
+                <td><span class="part" title="Partially">◐</span></td>
+                <td class="compare-bonka"><span class="yes">●</span></td>
+              </tr>
+              <tr>
+                <th scope="row">Tracks every lead to outcome</th>
+                <td><span class="no">—</span></td>
+                <td><span class="no">—</span></td>
+                <td><span class="no">—</span></td>
+                <td class="compare-bonka"><span class="yes">●</span></td>
+              </tr>
+              <tr>
+                <th scope="row">Installed &amp; optimized for you</th>
+                <td><span class="no">—</span></td>
+                <td><span class="part" title="Partially">◐</span></td>
+                <td><span class="no">—</span></td>
+                <td class="compare-bonka"><span class="yes">●</span></td>
+              </tr>
+              <tr>
+                <th scope="row">Knows restoration workflows</th>
+                <td><span class="no">—</span></td>
+                <td><span class="no">—</span></td>
+                <td><span class="no">—</span></td>
+                <td class="compare-bonka"><span class="yes">●</span></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="compare-legend mono" data-reveal data-delay="3"><span class="yes">●</span> Yes &nbsp;&nbsp; <span class="part">◐</span> Partial &nbsp;&nbsp; <span class="no">—</span> No</p>
+      </div>
+    </section>
+
+    <!-- ======================= FAQ ======================= -->
+    <section class="faq" id="faq">
+      <div class="container faq-grid">
+        <div class="faq-lead">
+          <p class="eyebrow" data-reveal>Questions, answered</p>
+          <h2 class="h2" data-reveal data-delay="1">Before you ask.</h2>
+          <p class="section-sub" data-reveal data-delay="2">
+            Anything else — bring it to the demo. We'll run your real call scenarios live.
+          </p>
+        </div>
+        <div class="faq-items" data-reveal data-delay="1">
+          <div class="faq-item">
+            <h3><button class="faq-q" aria-expanded="false" aria-controls="faq-a1" id="faq-q1">
+              Is Bonka just a chatbot with a phone number?
+              <span class="faq-icon" aria-hidden="true"></span>
+            </button></h3>
+            <div class="faq-a" id="faq-a1" role="region" aria-labelledby="faq-q1" hidden>
+              <p>No. Bonka is an operational intake layer. It answers real phone calls in natural voice, makes triage decisions, alerts your on-call staff, and manages every lead to an outcome. A chatbot deflects conversations; Bonka converts them.</p>
+            </div>
+          </div>
+          <div class="faq-item">
+            <h3><button class="faq-q" aria-expanded="false" aria-controls="faq-a2" id="faq-q2">
+              What exactly happens when a call comes in?
+              <span class="faq-icon" aria-hidden="true"></span>
+            </button></h3>
+            <div class="faq-a" id="faq-a2" role="region" aria-labelledby="faq-q2" hidden>
+              <p>If your team doesn't pick up — or it's after hours — the call forwards to Bonka within seconds. It qualifies the situation, grades urgency, and either dispatches your on-call person live, books the job, or queues it with a full brief for the morning. The caller never hears voicemail.</p>
+            </div>
+          </div>
+          <div class="faq-item">
+            <h3><button class="faq-q" aria-expanded="false" aria-controls="faq-a3" id="faq-q3">
+              Does it replace my office staff?
+              <span class="faq-icon" aria-hidden="true"></span>
+            </button></h3>
+            <div class="faq-a" id="faq-a3" role="region" aria-labelledby="faq-q3" hidden>
+              <p>No — it backs them up. Your team keeps answering as they do today. Bonka catches what they physically can't: after-hours calls, overflow during storm events, and the second line ringing while they're on the first.</p>
+            </div>
+          </div>
+          <div class="faq-item">
+            <h3><button class="faq-q" aria-expanded="false" aria-controls="faq-a4" id="faq-q4">
+              What if a caller needs a human?
+              <span class="faq-icon" aria-hidden="true"></span>
+            </button></h3>
+            <div class="faq-a" id="faq-a4" role="region" aria-labelledby="faq-q4" hidden>
+              <p>Bonka escalates on demand — it can bridge the caller straight to your on-call person, or take the details and trigger an immediate callback. Escalation rules are yours to define, down to job type and time of day.</p>
+            </div>
+          </div>
+          <div class="faq-item">
+            <h3><button class="faq-q" aria-expanded="false" aria-controls="faq-a5" id="faq-q5">
+              How long does setup take?
+              <span class="faq-icon" aria-hidden="true"></span>
+            </button></h3>
+            <div class="faq-a" id="faq-a5" role="region" aria-labelledby="faq-q5" hidden>
+              <p>Days, not months — and our team does the work. You keep your existing numbers; we configure forwarding, load your service areas, priorities and on-call roster, and fire-drill live calls with you before going live. After launch, a named Bonka specialist keeps tuning triage and routing against your real call outcomes.</p>
+            </div>
+          </div>
+          <div class="faq-item">
+            <h3><button class="faq-q" aria-expanded="false" aria-controls="faq-a6" id="faq-q6">
+              Does it work with my job management software?
+              <span class="faq-icon" aria-hidden="true"></span>
+            </button></h3>
+            <div class="faq-a" id="faq-a6" role="region" aria-labelledby="faq-q6" hidden>
+              <p>Yes. Bonka pushes qualified leads, briefs and outcomes into the tools you already run your jobs from, via native integrations and webhooks. Your queue can live in Bonka, your system, or both.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ======================= FINAL CTA ======================= -->
+    <section class="finale" id="demo">
+      <div class="finale-rings" aria-hidden="true"><span></span><span></span></div>
+      <div class="finale-horizon" aria-hidden="true"></div>
+      <svg class="motif motif-finale" aria-hidden="true"><use href="#bonka-spark"/></svg>
+      <div class="container finale-inner">
+        <p class="eyebrow eyebrow-center" data-reveal>Ready when the phone rings</p>
+        <h2 class="finale-title" data-reveal data-delay="1">Every missed call is a booked job — for someone else.</h2>
+        <p class="section-sub finale-sub" data-reveal data-delay="2">
+          See Bonka answer, qualify and route one of your real scenarios, live on a 20-minute call.
+        </p>
+        <div class="hero-actions finale-actions" data-reveal data-delay="3">
+          <a class="btn btn-primary btn-lg" href="mailto:hello@bonka.ai?subject=Bonka%20demo">Book a demo</a>
+          <a class="btn btn-ghost btn-lg" href="#how-it-works">See how it works</a>
+        </div>
+        <p class="finale-note mono" data-reveal data-delay="4">20 minutes · your real call scenarios · no obligation</p>
+      </div>
+    </section>
+  </main>
+
+  <!-- ======================= FOOTER ======================= -->
+  <footer class="footer">
+    <div class="container footer-grid">
+      <div class="footer-brand">
+        <a class="brand" href="#top" aria-label="Bonka — back to top">
+          <svg class="brand-mark" aria-hidden="true"><use href="#bonka-mark"/></svg>
+          <span class="brand-word">Bonka<span class="brand-tld">.ai</span></span>
+        </a>
+        <p class="footer-tag">AI call intake for restoration and urgent service businesses — installed, tested and tuned by the Bonka team.</p>
+        <p class="footer-status mono"><span class="live-dot live-dot-green"></span>ALL LINES MONITORED · 24/7</p>
+      </div>
+      <nav class="footer-col" aria-label="Product">
+        <p class="mono footer-col-title">PRODUCT</p>
+        <a href="#how-it-works">How it works</a>
+        <a href="#implementation">Implementation</a>
+        <a href="#use-cases">Use cases</a>
+        <a href="#visibility">Visibility</a>
+        <a href="#comparison">Comparison</a>
+      </nav>
+      <nav class="footer-col" aria-label="Company">
+        <p class="mono footer-col-title">COMPANY</p>
+        <a href="#results">Results</a>
+        <a href="#faq">FAQ</a>
+        <a href="#demo">Book a demo</a>
+        <a href="mailto:hello@bonka.ai">hello@bonka.ai</a>
+      </nav>
+    </div>
+    <div class="container footer-base">
+      <p class="mono">© <span id="year">2026</span> BONKA</p>
+      <p class="mono">MISSED NOTHING SINCE DAY ONE</p>
+    </div>
+  </footer>
+
+  <script src="js/main.js" defer></script>
+</body>
+</html>
