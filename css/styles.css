@@ -38,11 +38,11 @@
   --green-soft: rgba(92, 219, 164, 0.13);
 
   /* glass system */
-  --glass: rgba(255, 255, 255, 0.055);
-  --glass-2: rgba(255, 255, 255, 0.085);
-  --glass-line: rgba(186, 220, 244, 0.16);
-  --glass-line-2: rgba(196, 226, 248, 0.28);
-  --glass-bg: linear-gradient(160deg, rgba(255, 255, 255, 0.085), rgba(255, 255, 255, 0.028) 55%, rgba(140, 200, 240, 0.045));
+  --glass: rgba(255, 255, 255, 0.075);
+  --glass-2: rgba(255, 255, 255, 0.11);
+  --glass-line: rgba(186, 220, 244, 0.24);
+  --glass-line-2: rgba(196, 226, 248, 0.4);
+  --glass-bg: linear-gradient(160deg, rgba(255, 255, 255, 0.12), rgba(255, 255, 255, 0.04) 55%, rgba(140, 200, 240, 0.065));
   --glass-ring: linear-gradient(155deg,
       rgba(255, 255, 255, 0.5),
       rgba(155, 215, 245, 0.18) 30%,
@@ -51,7 +51,7 @@
       rgba(255, 255, 255, 0.20));
   --tick: rgba(155, 215, 245, 0.55);
 
-  --blur: blur(22px) saturate(170%);
+  --blur: blur(26px) saturate(185%) brightness(1.05);
   --shadow-lg: 0 36px 72px -34px rgba(2, 10, 22, 0.65);
   --shadow-md: 0 22px 48px -26px rgba(2, 10, 22, 0.5);
 
@@ -431,18 +431,36 @@ a { color: inherit; }
 }
 
 /* Primary glass surfaces use a soft continuous edge. The former
-   gradient mask and registration ticks produced visibly jagged hard corners. */
+   gradient mask and registration ticks produced visibly jagged hard corners,
+   so the rim is a plain border + layered inset speculars — no masks. */
 .metrics-card::before, .misslog::before, .board::before,
 .table-wrap::before, .nav::before, .finale::before {
   padding: 0;
   background: none;
-  border: 1px solid rgba(205, 229, 246, 0.12);
+  border: 1px solid rgba(205, 229, 246, 0.17);
   -webkit-mask: none;
   mask: none;
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.10);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.22),
+    inset 0 -1px 0 rgba(155, 215, 245, 0.08),
+    inset 1px 0 0 rgba(255, 255, 255, 0.05);
 }
+
+/* diagonal light catch across the pane — the sheen sits in front of
+   content like a real reflection, faint enough not to touch legibility */
 .metrics-card::after, .misslog::after, .board::after,
-.table-wrap::after, .finale::after { content: none; }
+.table-wrap::after, .finale::after {
+  content: "";
+  inset: 0;
+  opacity: 1;
+  border-radius: inherit;
+  background: linear-gradient(115deg,
+    rgba(255, 255, 255, 0.09),
+    rgba(255, 255, 255, 0.03) 16%,
+    transparent 40%,
+    transparent 75%,
+    rgba(155, 215, 245, 0.05));
+}
 
 /* ============================================================
    NAV — floating glass bar
@@ -457,15 +475,15 @@ a { color: inherit; }
   width: min(var(--content-max), calc(100% - 32px));
   height: var(--nav-h);
   border-radius: 20px;
-  background: linear-gradient(150deg, rgba(43, 72, 96, 0.72), rgba(18, 43, 66, 0.68));
-  background-color: rgba(10, 30, 52, 0.55);
+  background: linear-gradient(150deg, rgba(49, 80, 106, 0.55), rgba(17, 41, 64, 0.46));
+  background-color: rgba(9, 27, 47, 0.42);
   backdrop-filter: var(--blur);
   -webkit-backdrop-filter: var(--blur);
   box-shadow: 0 22px 48px -30px rgba(1, 9, 20, 0.68), inset 0 1px 0 rgba(255, 255, 255, 0.08);
   transition: background-color 0.4s var(--ease), box-shadow 0.4s var(--ease);
 }
 .nav.scrolled {
-  background-color: rgba(8, 24, 42, 0.8);
+  background-color: rgba(7, 22, 39, 0.72);
   box-shadow: 0 30px 62px -34px rgba(1, 9, 20, 0.76), inset 0 1px 0 rgba(255, 255, 255, 0.08);
 }
 
@@ -734,10 +752,10 @@ a { color: inherit; }
   margin-left: auto;
   overflow: hidden;
   border-radius: 28px;
-  background: linear-gradient(150deg, rgba(43, 72, 96, 0.76), rgba(18, 43, 66, 0.72));
+  background: linear-gradient(150deg, rgba(49, 80, 106, 0.6), rgba(17, 41, 64, 0.52));
   backdrop-filter: var(--blur);
   -webkit-backdrop-filter: var(--blur);
-  box-shadow: 0 32px 66px -40px rgba(1, 9, 20, 0.72), inset 0 1px 0 rgba(255, 255, 255, 0.08);
+  box-shadow: 0 36px 72px -38px rgba(1, 9, 20, 0.8), inset 0 1px 0 rgba(255, 255, 255, 0.08);
   transition: transform 0.5s var(--ease);
 }
 .hero-metrics:hover .metrics-card { transform: translateY(-4px); }
@@ -1248,10 +1266,10 @@ a { color: inherit; }
 .misslog {
   overflow: hidden;
   border-radius: 26px;
-  background: linear-gradient(150deg, rgba(43, 72, 96, 0.76), rgba(18, 43, 66, 0.72));
+  background: linear-gradient(150deg, rgba(49, 80, 106, 0.6), rgba(17, 41, 64, 0.52));
   backdrop-filter: var(--blur);
   -webkit-backdrop-filter: var(--blur);
-  box-shadow: 0 32px 66px -40px rgba(1, 9, 20, 0.72), inset 0 1px 0 rgba(255, 255, 255, 0.08);
+  box-shadow: 0 36px 72px -38px rgba(1, 9, 20, 0.8), inset 0 1px 0 rgba(255, 255, 255, 0.08);
 }
 .misslog-head {
   display: flex;
@@ -1657,10 +1675,10 @@ a { color: inherit; }
 .board {
   overflow: hidden;
   border-radius: 26px;
-  background: linear-gradient(150deg, rgba(43, 72, 96, 0.76), rgba(18, 43, 66, 0.72));
+  background: linear-gradient(150deg, rgba(49, 80, 106, 0.6), rgba(17, 41, 64, 0.52));
   backdrop-filter: var(--blur);
   -webkit-backdrop-filter: var(--blur);
-  box-shadow: 0 32px 66px -40px rgba(1, 9, 20, 0.72), inset 0 1px 0 rgba(255, 255, 255, 0.08);
+  box-shadow: 0 36px 72px -38px rgba(1, 9, 20, 0.8), inset 0 1px 0 rgba(255, 255, 255, 0.08);
 }
 
 .board-head {
@@ -1783,10 +1801,10 @@ a { color: inherit; }
 .table-wrap {
   overflow-x: auto;
   border-radius: 26px;
-  background: linear-gradient(150deg, rgba(43, 72, 96, 0.76), rgba(18, 43, 66, 0.72));
+  background: linear-gradient(150deg, rgba(49, 80, 106, 0.6), rgba(17, 41, 64, 0.52));
   backdrop-filter: var(--blur);
   -webkit-backdrop-filter: var(--blur);
-  box-shadow: 0 32px 66px -40px rgba(1, 9, 20, 0.72), inset 0 1px 0 rgba(255, 255, 255, 0.08);
+  box-shadow: 0 36px 72px -38px rgba(1, 9, 20, 0.8), inset 0 1px 0 rgba(255, 255, 255, 0.08);
 }
 
 .compare {
@@ -1928,7 +1946,7 @@ thead .compare-bonka { border-top: 0; }
     url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='560' height='560'%3E%3Cg fill='%23eaf6ff'%3E%3Ccircle cx='43' cy='74' r='1.1' opacity='.4'/%3E%3Ccircle cx='156' cy='238' r='.9' opacity='.3'/%3E%3Ccircle cx='258' cy='56' r='1.2' opacity='.44'/%3E%3Ccircle cx='356' cy='150' r='.9' opacity='.3'/%3E%3Ccircle cx='462' cy='88' r='1.1' opacity='.4'/%3E%3Ccircle cx='521' cy='338' r='.9' opacity='.26'/%3E%3Ccircle cx='68' cy='414' r='1' opacity='.32'/%3E%3Ccircle cx='300' cy='470' r='.9' opacity='.24'/%3E%3C/g%3E%3Ccircle cx='204' cy='332' r='1' fill='%23ffb48a' opacity='.34'/%3E%3Cpath d='M490 172l2 5 5 2-5 2-2 5-2-5-5-2 5-2z' fill='%23eaf6ff' opacity='.42'/%3E%3C/svg%3E") 0 0 / 560px 560px,
     radial-gradient(640px 420px at 50% 106%, rgba(255, 96, 56, 0.20), transparent 72%),
     radial-gradient(720px 420px at 50% 6%, rgba(95, 178, 222, 0.10), transparent 75%),
-    linear-gradient(150deg, rgba(43, 72, 96, 0.76), rgba(18, 43, 66, 0.72));
+    linear-gradient(150deg, rgba(49, 80, 106, 0.6), rgba(17, 41, 64, 0.52));
   backdrop-filter: var(--blur);
   -webkit-backdrop-filter: var(--blur);
   box-shadow: 0 36px 76px -42px rgba(1, 9, 20, 0.76), inset 0 1px 0 rgba(255, 255, 255, 0.08);
