@@ -784,7 +784,10 @@ a { color: inherit; }
 .metric-row {
   position: relative;
   display: grid;
-  grid-template-columns: 150px 1fr;
+  /* fixed number column keeps the three rows aligned with each other;
+     sized for the widest value ($4,500+) so nothing clips against the
+     card's overflow:hidden */
+  grid-template-columns: 180px 1fr;
   align-items: center;
   gap: 18px;
   padding: 26px 26px;
@@ -799,10 +802,11 @@ a { color: inherit; }
 }
 .metric-row strong {
   font-family: var(--font-display);
-  font-size: clamp(2.2rem, 3.4vw, 2.85rem);
+  font-size: clamp(2.2rem, 3.2vw, 2.6rem);
   font-weight: 700;
   line-height: 1;
   letter-spacing: -0.04em;
+  white-space: nowrap;
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
@@ -2149,8 +2153,8 @@ thead .compare-bonka { border-top: 0; }
   .hero-title { font-size: clamp(2.6rem, 12vw, 3.6rem); }
   .hero-sub { font-size: 1.02rem; }
   .hero-actions .btn { flex: 1 1 150px; }
-  .metric-row { grid-template-columns: 120px 1fr; gap: 14px; padding: 20px; }
-  .metric-row strong { font-size: 2.1rem; }
+  .metric-row { grid-template-columns: 134px 1fr; gap: 14px; padding: 20px; }
+  .metric-row strong { font-size: 2rem; }
 
   .integrations { padding-bottom: 24px; }
   .integration-strip { border-radius: 15px; }
