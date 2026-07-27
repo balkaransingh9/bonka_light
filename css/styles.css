@@ -70,7 +70,14 @@
 
 * { box-sizing: border-box; margin: 0; padding: 0; }
 
-html { scroll-behavior: smooth; scroll-padding-top: calc(var(--nav-h) + 32px); }
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: calc(var(--nav-h) + 32px);
+  max-width: 100%;
+  overflow-x: hidden;
+  overflow-x: clip;
+  overscroll-behavior-x: none;
+}
 
 body {
   background-color: var(--bg);
@@ -79,7 +86,9 @@ body {
   font-size: 16px;
   line-height: 1.6;
   -webkit-font-smoothing: antialiased;
+  max-width: 100%;
   overflow-x: hidden;
+  overflow-x: clip;
 }
 
 /* the drafting sheet — vignette over grid over ink blooms.
@@ -588,7 +597,7 @@ a { color: inherit; }
   border-bottom: 1px solid var(--line-soft);
 }
 .mobile-menu a:last-child { border: none; margin-top: 12px; text-align: center; }
-.mobile-menu.open { display: flex; }
+.mobile-menu.open { display: none; }
 
 /* ============================================================
    HERO — copy over the drafting sheet, blueprint behind glass
@@ -917,6 +926,8 @@ a { color: inherit; }
 .visibility, .results, .comparison, .faq {
   position: relative;
   padding-block: var(--section);
+  overflow-x: hidden;
+  overflow-x: clip;
 }
 .integrations + .problem {
   padding-top: clamp(72px, 7vw, 96px);
@@ -2116,15 +2127,48 @@ thead .compare-bonka { border-top: 0; }
   .hero-copy { max-width: 720px; }
   .hero-metrics { width: min(100%, 620px); }
   .metrics-card { margin-inline: auto; }
-  .hero-metrics::before { right: auto; left: 50%; transform: translate(-50%, -50%); }
+  .hero-metrics::before { display: none; }
 
   .integration-strip {
-    grid-template-columns: 1fr;
+    grid-template-columns: minmax(0, 1fr);
     gap: 10px;
     min-height: 0;
     padding: 18px 24px 16px;
   }
-  .integrations-title { padding: 0; border-right: 0; text-align: center; }
+  .integrations-title {
+    min-width: 0;
+    max-width: 100%;
+    padding: 0;
+    border-right: 0;
+    text-align: center;
+  }
+  .marquee {
+    min-width: 0;
+    max-width: 100%;
+    overflow: hidden;
+  }
+}
+
+@media (max-width: 800px) {
+  .nav {
+    top: 10px;
+    width: calc(100vw - 20px);
+    max-width: calc(100% - 20px);
+    border-radius: 15px;
+  }
+  .nav-inner { width: calc(100% - 24px); min-width: 0; gap: 14px; }
+  .nav-links, .nav-cta { display: none; }
+  .nav-toggle { display: flex; }
+  .mobile-menu {
+    left: 0;
+    right: 0;
+    width: auto;
+    max-width: 100%;
+    max-height: calc(100dvh - var(--nav-h) - 28px);
+    overflow-y: auto;
+    overscroll-behavior: contain;
+  }
+  .mobile-menu.open { display: flex; }
 }
 
 @media (max-width: 720px) {
@@ -2144,9 +2188,6 @@ thead .compare-bonka { border-top: 0; }
     width: 500px;
   }
 
-  .nav { top: 10px; border-radius: 15px; }
-  .nav-links, .nav-cta { display: none; }
-  .nav-toggle { display: flex; }
   .brand-word { font-size: 1.08rem; }
 
   .hero { padding: calc(var(--nav-h) + 72px) 0 48px; }
@@ -2190,6 +2231,24 @@ thead .compare-bonka { border-top: 0; }
 
   .footer-grid { grid-template-columns: 1fr; gap: 40px; }
   .footer-base { flex-direction: column; gap: 8px; }
+}
+
+@media (max-width: 480px) {
+  .hero-actions {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .hero-actions .btn {
+    width: 100%;
+    flex: 0 0 auto;
+  }
+
+  .metric-row {
+    grid-template-columns: 112px minmax(0, 1fr);
+    gap: 12px;
+    padding: 19px 18px;
+  }
+  .metric-row strong { font-size: 1.8rem; }
 }
 
 /* ============================================================

@@ -54,6 +54,12 @@
       toggle.focus();
     }
   });
+  const wideNav = window.matchMedia("(min-width: 801px)");
+  const closeMenuOnWideScreen = () => {
+    if (wideNav.matches && !menu.hidden) setMenu(false);
+  };
+  wideNav.addEventListener("change", closeMenuOnWideScreen);
+  window.addEventListener("resize", closeMenuOnWideScreen, { passive: true });
 
   /* ---------- scroll reveals ---------- */
   const revealEls = document.querySelectorAll("[data-reveal]");
